@@ -1,8 +1,9 @@
 require 'rails_helper'
 
 describe "the add a comment process" do
-  post = Post.create({:title => "Test Title", :link => "www.learnhowtoprogram.com", :author => "Test Author"})
+
   it "adds a new comment" do
+    post = Post.create({:title => "Test Title", :link => "www.learnhowtoprogram.com", :author => "Test Author"})
     visit posts_path
     click_link 'Add a comment'
     click_link 'add comment'
@@ -13,6 +14,7 @@ describe "the add a comment process" do
   end
 
   it "gives error when no name is entered" do
+    post = Post.create({:title => "Test Title", :link => "www.learnhowtoprogram.com", :author => "Test Author"})
     visit new_post_comment_path(post)
     click_on 'Create Comment'
     expect(page).to have_content 'errors'
