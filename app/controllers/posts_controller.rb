@@ -1,11 +1,30 @@
 class PostsController < ApplicationController
   def index
     @posts = Post.all
-    render :index
   end
 
   def show
     @post = Post.find(params[:id])
-    render :show
   end
+
+  def new
+    @post = Post.new
+  end
+
+  def create
+    @post = Post.new(post_params)
+    if @post.save
+      flash[:notice] = "Post successfully added!"
+      redirect_to posts_path
+    else
+      flash[:alert] = "You screwed it up"
+      render :new
+    end
+  end
+
+  private
+  def post_params
+    params.require(:post).permit(:title, :link, :author)
+  end
+
 end
